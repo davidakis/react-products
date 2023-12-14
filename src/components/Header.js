@@ -1,25 +1,94 @@
 import React from 'react';
-import { Router } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../allyouneedisshop.png';
+import iconCart from '../assets/icon-cart.svg';
+import iconHeart from '../assets/icon-heart.svg';
+import iconUser from '../assets/icon-user.svg';
 import SearchBar from './SearchBar';
 
-const style1 = { display: 'flex', flexDirection: 'row' };
+const Top = styled.div`
+   display: flex;
+   width: 1440px;
+   padding: 0px 104px;
+   align-items: center;
+   gap: 60px;
+`;
+
+const TopMenuBar = styled.div`
+    display: flex;
+    padding: 10px 0px;
+    align-items: center;
+    gap: 30px;
+    flex: 1 0 0
+`;
+
+const Center = styled.div`
+   display: flex;
+   width: 1440px
+   padding: 30px 104px;
+   justify-content: space-between;
+   align-items: center
+`;
+
+
+
+const Link = styled.a`
+  color: black;
+  text-decoration: none;
+  text-transform: ${props => props.upperCase ? 'uppercase' : ''}
+`;
+
+const Logo = styled.img`
+    display: flex;
+    width: 155px;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0
+`;
+const HR = styled.hr`
+    color: rgb(255, 255, 255)
+`;
+
+const IconContainer = styled.div`
+    width: 155px;
+    height: 36px;
+    flex-shrink: 0; 
+`;
 
 class Header extends React.Component {
     render() {
         return(
         <div>
-            <nav>
-
-            </nav>
-            <div style={style1}>
-               <img src={logo} alt="all you need is shop" width="30%" />
+            <Top>
+                <TopMenuBar>
+                    <nav>
+                        <Link href="#">Chi siamo</Link> &nbsp;
+                        <Link href="#">Community</Link> &nbsp;
+                        <Link href="#">Brand</Link> 
+                    </nav>
+                </TopMenuBar>
+                ITA 
+            </Top>
+            <HR />
+            <Center>
+               <Logo src={logo} alt="all you need is shop" />
                <SearchBar />
-            </div>
-            <nav>
-
-            </nav>
+               <IconContainer>
+                    <iconUser />
+                    <iconHeart />
+                    <iconCart />
+               </IconContainer>
+            </Center>
+            <HR />
+            <Top>
+                <nav>
+                    <Link upperCase href="#">Donna</Link> &nbsp;
+                    <Link upperCase href="#">Uomo</Link> &nbsp;
+                    <Link upperCase href="#">Bambini</Link> &nbsp;
+                    <Link upperCase href="#">Tutti gli articoli</Link> 
+                </nav>
+            </Top>
+            <HR />
         </div>
         )
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Input } from 'antd';
 
-const url = 'https://api.escuelajs.co/api/v1/products/?categoryId=';
+const url = 'https://api.escuelajs.co/api/v1/products/?categoryId=1';
 const { Search } = Input;
 
 class SearchBar extends React.Component {
@@ -16,14 +16,16 @@ class SearchBar extends React.Component {
   } 
 
   componentDidMount() {
-    fetch(url + '1').then(res => {
+    fetch(url)
+      .then(res => { 
         this.setState(
             {
-                data: res.data || [],
-                filteredData: res.data || []
+                data: res.body || [],
+                filteredData: res.body|| []
             }
-        );
+        )
     })
+    .catch(err => {console.log(err)})
   }
   
   handleFilter = e => {
@@ -43,23 +45,13 @@ class SearchBar extends React.Component {
         <div className="search">
     <div className="searchInputs">
       <Search
-        placeholder="input search text" 
+        placeholder="Cosa stai cercando?" 
         value={input}
-        onChange={(e) => this.handleFilter(e)}       
+        onChange={this.handleFilter}       
         enterButton
       />
     </div>
-      {filteredData.length !== 0 && (
-    <div className="dataResult">
-      {filteredData.slice(0, 10).map((value, index) => {
-      return (
-      <div className="dataItem" key={value.id}>
-        <p>{value.first_name} {value.last_name}</p>
-      </div>
-      );
-    })}
-    </div>
-    )}
+   
   </div>
      )
   }
