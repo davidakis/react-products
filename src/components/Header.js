@@ -5,6 +5,7 @@ import iconCart from '../assets/icon-cart.svg';
 import iconHeart from '../assets/icon-heart.svg';
 import iconUser from '../assets/icon-user.svg';
 import SearchBar from './SearchBar';
+import { Badge } from 'antd';
 
 const Top = styled.div`
    display: flex;
@@ -55,6 +56,12 @@ const IconContainer = styled.div`
     flex-shrink: 0; 
 `;
 
+const badgeStyle = {
+    postion: 'absolute',
+    top: '-30px',
+    left: '-13px'
+}
+
 class Header extends React.Component {
     render() {
         return(
@@ -74,9 +81,10 @@ class Header extends React.Component {
                <Logo src={logo} alt="all you need is shop" />
                <SearchBar />
                <IconContainer>
-                    <iconUser />
-                    <iconHeart />
-                    <iconCart />
+                  <img src={iconUser} alt="accedi" />
+                  <img src={iconHeart} alt="segna come preferito" />
+                  <img src={iconCart} alt="carrello" />
+                  <Badge styles={badgeStyle} color="red" count="2" />
                </IconContainer>
             </Center>
             <HR />
