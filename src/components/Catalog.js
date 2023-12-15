@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Row, Col, Select, InputNumber, Checkbox, Pagination } from 'antd';
+import { Card, Row, Col, Select, InputNumber, Checkbox, List } from 'antd';
 
 const { Option } = Select;
 
@@ -71,6 +71,13 @@ class Catalog extends React.Component {
     handlePriceRangeChange = value => {
         this.setState({ priceRange: value });
     }
+
+    renderExtra = product => {
+      return (
+        <div><Img><img src={product.images} width="100%" /></Img><Desc>{product.description}</Desc></div>
+      )
+    }
+
     render() {
         let {categories, filteredProducts, priceRange} = this.state;
         return (
@@ -109,11 +116,10 @@ class Catalog extends React.Component {
                 </Col>
               </Row>
               <Row gutter={[16, 16]}>
+                
                 {filteredProducts.map((product) => (
                   <Col key={product.id} xs={24} sm={12} md={8} lg={6}>
-                    <Card style={cardStyle} title={product.name}>
-                      <Img><img src={product.images} width="578" height="385" /></Img>
-                      <Desc>{product.description}</Desc>
+                    <Card style={cardStyle} title={product.name} extra={this.renderExtra(product)}>
                     </Card>
                   </Col>
                 ))}
