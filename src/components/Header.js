@@ -4,6 +4,7 @@ import logo from '../assets/allyouneedisshop.png';
 import iconCart from '../assets/icon-cart.svg';
 import iconHeart from '../assets/icon-heart.svg';
 import iconUser from '../assets/icon-user.svg';
+import iconArrow from '../assets/icon-arrow.svg';
 import iconHamburger from '../assets/hamburger.png';
 import SearchBar from './SearchBar';
 import { Badge } from 'antd';
@@ -71,6 +72,10 @@ const Icon = styled.img`
   padding-right: 10px;
 `;
 
+const Country = styled.div`
+     margin: auto;
+`
+
 const badgeStyle = {
     position: 'absolute', top: '-25px'
 };
@@ -118,7 +123,8 @@ class Header extends React.Component {
                         <Link href="#">Brand</Link> 
                     </nav>
                 </TopMenuBar>
-                <div style={{ margin: 'auto'} }>ITA</div>
+                <Country>ITA</Country>
+                <img src={iconArrow} alt="scegli" />
             </Top>
             <HR />
             <Center>
@@ -127,20 +133,21 @@ class Header extends React.Component {
                <MenuIcon onClick={this.toggleMenu}>
                     <img src={iconHamburger} alt="Menu" style={{ maxWidth: '20%' }}/>
                 </MenuIcon>
-                <MobileMenu isOpen={isMenuOpen}>
+                <MobileMenu open={isMenuOpen}>
                     <img src={iconUser} alt="accedi" />
                     <img src={iconHeart} alt="segna come preferito" />
                     <img src={iconCart} alt="carrello" />
                 </MobileMenu>
-                {isMenuOpen ? null : (
-               <IconContainer>
-                  <Icon src={iconUser} alt="accedi" />
-                  <Icon src={iconHeart} alt="segna come preferito" />
-                  <span>
-                    <Icon src={iconCart} alt="carrello" />
-                    <Badge style={badgeStyle} color="red" count="2" />
-                  </span>
-                </IconContainer>)}
+                {!isMenuOpen &&
+                    <IconContainer>
+                        <Icon src={iconUser} alt="accedi" />
+                        <Icon src={iconHeart} alt="segna come preferito" />
+                        <span>
+                            <Icon src={iconCart} alt="carrello" />
+                            <Badge style={badgeStyle} color="red" count="2" />
+                        </span>
+                        </IconContainer>
+                }
             </Center>
             <HR />
             <Top>
