@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Row, Col, Select, InputNumber, Checkbox, List } from 'antd';
+import { Card, Row, Col, Select, InputNumber, Checkbox, Pagination } from 'antd';
 
 const { Option } = Select;
 
@@ -44,7 +44,9 @@ class Catalog extends React.Component {
             categories: [],
             filteredProducts: [],
             selectedCategory: '',
-            priceRange: [0, 1000]
+            priceRange: [0, 1000],
+            minValue: 1,
+            maxValue: 100
         }
     }
 
@@ -74,7 +76,7 @@ class Catalog extends React.Component {
 
     renderExtra = product => {
       return (
-        <div><Img><img src={product.images} width="100%" /></Img><Desc>{product.description}</Desc></div>
+        <div><Img><img src={product.images} width="100%" /></Img><Desc>{product.title}</Desc></div>
       )
     }
 
