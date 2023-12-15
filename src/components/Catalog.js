@@ -6,12 +6,15 @@ const { Option } = Select;
 
 const cardStyle = {
   display: 'flex',
-  height: '220px',
-  padding: '5px 5px 0px 0px',
+  width: '289px',
+  height: '420px',
+  paddingBottom: '20px',
   flexDirection: 'column',
-  alignItems: 'flex-end',
+  alignItems: 'center',
+  gap: '20px',
   flexShrink: 0,
-  alignSelf: 'stretch' 
+  background: '#fff',
+  boxShadow: '0px 5px 10px 0px rgba(0, 0, 0, 0.15);' 
 }
 
 const Img = styled.div`
@@ -35,6 +38,22 @@ const Desc = styled.div`
   flex-shrink: 0; 
 `
 
+const backgroundStyle = {
+  backgroundRepeat: 'no-repeat', 
+  backgroundPosition: '50%', 
+  backgroundSize: 'cover', 
+  backgroundColor: 'lightgrey' 
+};
+
+const Container = styled.div`
+  position: relative;
+  top: 350px;
+`
+const Footer = styled.div`
+  position: relative;
+  top: 300px;
+`
+
 
 class Catalog extends React.Component {
     constructor(props) {
@@ -46,7 +65,7 @@ class Catalog extends React.Component {
             selectedCategory: '',
             priceRange: [0, 1000],
             minValue: 1,
-            maxValue: 100
+            maxValue: 20
         }
     }
 
@@ -76,13 +95,24 @@ class Catalog extends React.Component {
 
     renderExtra = product => {
       return (
-        <div><Img><img src={product.images} width="100%" /></Img><Desc>{product.title}</Desc></div>
+        <div style={{paddingBottom: '20px'}}>
+          <Img style={{backgroundImage: `url(${product.images})`, ...backgroundStyle}}></Img>
+          <Desc>{product.title}<br /><br />{product.description}</Desc>
+        </div>
       )
     }
 
+    handleChange = value => {
+      this.setState({
+        minValue: (value - 1) * 10,
+        maxValue: value * 10
+      });
+    };
+
     render() {
-        let {categories, filteredProducts, priceRange} = this.state;
+        let {categories, filteredProducts, priceRange, minValue, maxValue} = this.state;
         return (
+          <div>
             <div>
               <Row gutter={[16, 16]}>
                 <Col span={6}>
@@ -117,15 +147,29 @@ class Catalog extends React.Component {
                   <Checkbox checked>Solo disponibili</Checkbox>
                 </Col>
               </Row>
-              <Row gutter={[16, 16]}>
-                
-                {filteredProducts.map((product) => (
-                  <Col key={product.id} xs={24} sm={12} md={8} lg={6}>
-                    <Card style={cardStyle} title={product.name} extra={this.renderExtra(product)}>
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
+              <Container>
+                <Row gutter={[16, 16]}>
+                  {filteredProducts.length > 0 && 
+                    filteredProducts.slice(minValue, maxValue).map((product) => (
+                    <Col key={product.id} xs={24} sm={12} md={8} lg={6}>
+                      <Card 
+                        style={cardStyle} 
+                        title={product.name} 
+                        extra={this.renderExtra(product)}>
+                      </Card>
+                    </Col>
+                  ))}
+                </Row>
+              </Container>
+            </div>
+              <Footer>
+                <Pagination
+                    defaultCurrent={1}
+                    defaultPageSize={10} //default size of page
+                    onChange={this.handleChange}
+                    total={5} //total number of card data available
+                  />
+              </Footer>
             </div>
           );
     }

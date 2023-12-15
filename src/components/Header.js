@@ -15,10 +15,12 @@ const Top = styled.div`
    width: 1440px;
    padding: 20px;
    align-items: center;
+   text-align: center;
    gap: 10px;
    @media (min-width: 768px) {
     flex-direction: row;  // Torna a una direzione di riga per schermi più grandi
     padding: 0px 104px;  // Ripristina il padding originale
+    text-align: left;
  }
 `;
 
@@ -33,6 +35,7 @@ const TopMenuBar = styled.div`
     @media (min-width: 768px) {
         flex-direction: row;  // Torna a una direzione di riga per schermi più grandi
         padding: 30px 104px;  // Ripristina il padding originale
+        text-align: center;
      }
 `;
 
@@ -49,7 +52,7 @@ const Center = styled.div`
 const Link = styled.a`
   color: black;
   text-decoration: none;
-  text-transform: ${props => props.uppercase ? 'uppercase' :''};
+  text-transform: ${props => (props.uppercase ? 'uppercase' :'')};
 `;
 
 const Logo = styled.img`
@@ -101,6 +104,13 @@ const MobileMenu = styled.div`
   z-index: 1000;
 `;
 
+const DesktopIcons = styled.div`
+  @media (max-width: 767px) {
+    display: none; // Nascondi le icone desktop su schermi più piccoli
+  }
+`;
+
+
 class Header extends React.Component {
     constructor(props) {
         super(props)
@@ -138,7 +148,7 @@ class Header extends React.Component {
                     <img src={iconHeart} alt="segna come preferito" />
                     <img src={iconCart} alt="carrello" />
                 </MobileMenu>
-                {!isMenuOpen &&
+                 <DesktopIcons>
                     <IconContainer>
                         <Icon src={iconUser} alt="accedi" />
                         <Icon src={iconHeart} alt="segna come preferito" />
@@ -146,16 +156,16 @@ class Header extends React.Component {
                             <Icon src={iconCart} alt="carrello" />
                             <Badge style={badgeStyle} color="red" count="2" />
                         </span>
-                        </IconContainer>
-                }
+                    </IconContainer>
+                </DesktopIcons>
             </Center>
             <HR />
             <Top>
                 <nav>
-                    <Link uppercase="uppercase" href="#">Donna</Link> &nbsp;
-                    <Link uppercase="uppercase" href="#">Uomo</Link> &nbsp;
-                    <Link uppercase="uppercase" href="#">Bambini</Link> &nbsp;
-                    <Link uppercase="uppercase" href="#">Tutti gli articoli</Link> 
+                    <Link uppercase="true" href="#">Donna</Link> &nbsp;
+                    <Link uppercase="true" href="#">Uomo</Link> &nbsp;
+                    <Link uppercase="true" href="#">Bambini</Link> &nbsp;
+                    <Link uppercase="true" href="#">Tutti gli articoli</Link> 
                 </nav>
             </Top>
             <HR />
