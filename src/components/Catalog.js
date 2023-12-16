@@ -85,12 +85,28 @@ class Catalog extends React.Component {
         .catch(err => console.log(err))
     }
 
+    toggleFilter = () =>{
+      let {selectedCategory, filteredProducts, priceRange} = this.state;
+       let filter = filteredProducts.filter(product => {
+        (selectedCategory === '' || product.category === selectedCategory) &&
+         product.price >= priceRange[0] &&
+         product.price <= priceRange[1]
+       });
+       
+       this.setState({
+        filteredProducts: filter,
+        priceRange: priceRange
+       })
+    }
+
     handleCategoryChange = value => {
-        this.setState({selectedCategory: value});
+       this.setState({
+          selectedCategory: value,
+      }, this.toggleFilter());
     }
 
     handlePriceRangeChange = value => {
-        this.setState({ priceRange: value });
+        this.setState({ priceRange: value }, this.toggleFilter());
     }
 
     renderExtra = product => {
